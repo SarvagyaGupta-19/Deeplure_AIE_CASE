@@ -1,0 +1,43 @@
+{
+  "identification": {
+    "Recall@1": 0.8833333333333333,
+    "Recall@3": 0.95,
+    "Recall@5": 0.9666666666666667,
+    "mAP": 0.7531086028696137
+  },
+  "verification": {
+    "AUC-ROC": 0.89595,
+    "EER": 0.17900000000000002,
+    "Best_Accuracy": 0.8255,
+    "Best_Threshold": 0.7444018125534058,
+    "Num_Pos_Pairs": 1000,
+    "Num_Neg_Pairs": 1000,
+    "Mean_Pos_Sim": 0.8266706330776215,
+    "Mean_Neg_Sim": 0.6412212316095829,
+    "Similarity_Gap": 0.18544940146803857
+  },
+  "color_invariance": {
+    "Same_Design_Diff_Color_Mean": 0.9912425246238709,
+    "Same_Design_Diff_Color_Std": 0.015800033431777976,
+    "Same_Design_Diff_Color_Min": 0.8373842239379883,
+    "Diff_Design_Mean": 0.6018077605207202,
+    "Diff_Design_Std": 0.10048486764591612,
+    "Color_Invariance_Gap": 0.3894347641031507,
+    "Num_Same_Pairs": 250,
+    "Num_Diff_Pairs": 71
+  },
+  "efficiency": {
+    "Backbone": "resnet18",
+    "Total_Parameters": "11,341,248",
+    "Trainable_Parameters": "11,341,248",
+    "Backbone_Parameters": "11,176,512",
+    "Projection_Parameters": "164,736",
+    "Embedding_Dim": "128",
+    "Embedding_Bytes": "512",
+    "Est_GFLOPs": "1.82",
+    "Latency_Mean_ms": "15.29",
+    "Latency_Std_ms": "1.08",
+    "Device": "cpu",
+    "Input_Size": "224x224"
+  }
+}
