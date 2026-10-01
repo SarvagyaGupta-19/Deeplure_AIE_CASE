@@ -13,6 +13,8 @@ The system utilizes a ResNet-18 backbone projecting to a 128-dimensional embeddi
 
 The model was evaluated on a dedicated test split utilizing both retrieval (gallery search) and pairwise verification metrics.
 
+![Retrieval Examples](outputs/retrieval_examples.png)
+
 ### 1. Identification (Retrieval)
 Evaluated by querying test images against a gallery of 115 known reference designs.
 
@@ -26,6 +28,8 @@ Evaluated by querying test images against a gallery of 115 known reference desig
 ### 2. Verification (Pairwise)
 Evaluated on 2,000 random image pairs to verify whether two given images contain the same design.
 
+![Similarity Distribution](outputs/similarity_distribution.png)
+
 | Metric | Score | Description |
 |--------|-------|-------------|
 | **AUC-ROC** | **0.8960** | Area under the Receiver Operating Characteristic curve. |
@@ -38,6 +42,12 @@ Tests the model's ability to maintain high similarity for identical designs unde
 * **Same Design (Extreme Colorways) Similarity:** 0.9912 ± 0.0158
 * **Different Design Similarity:** 0.6018 ± 0.1005
 * **Color Invariance Gap:** **+0.3894** *(indicates strong structural discrimination independent of color)*
+
+### 4. Embedding Space & Clustering
+The color-invariant features naturally cluster designs from the same category together.
+
+![Embedding Space (PCA)](outputs/embedding_space.png)
+![Confusion Matrix](outputs/confusion_matrix.png)
 
 ---
 
