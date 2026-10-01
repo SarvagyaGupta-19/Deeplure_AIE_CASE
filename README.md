@@ -7,15 +7,19 @@ A scalable metric learning system that identifies saree designs independent of t
 
 ---
 
-## Deliverable 1: Approach Note
-*Chosen architecture, rationale, pre/post-processing, and training strategy (486 chars).*
+## Approach Note
+*Chosen architecture, rationale, pre/post-processing, and training strategy.*
 
 ResNet-18 projecting to a 128-d L2-normalized embedding. Pre-processing uses aggressive color augmentation (channel shuffle, hue rotation) to force color-invariance, while mild geometric crops preserve pattern structure. Training is a 2-stage metric pipeline: Stage 1 applies self-supervised NT-Xent loss to cluster augmented views of the same image. Stage 2 applies Supervised Contrastive (SupCon) loss to discriminate between structural families. No static grayscale conversion used.
 
 ---
 
-## Deliverable 2: Working Code
-The pipeline is structured as a modular, production-ready Python package with strict separation of concerns.
+## Dataset
+I utilized the **Indian Saree Patterns (Kaggle)** dataset. 
+* **Data Cleaning & Deduplication:** The raw Kaggle training split contained 3x augmented copies using salt-and-pepper noise. To prevent data leakage and allow our targeted contrastive color augmentations to correctly guide the model, we implemented a custom `explorer.py` deduplication logic that automatically strips the training set down to its unique source images (1,293 -> 431 unique images) prior to training.
+---
+
+## Setup Code
 
 **Installation & Usage:**
 ```bash
@@ -42,9 +46,9 @@ results = matcher.identify('query.jpg', top_k=5)
 
 ---
 
-## Deliverable 3: Evaluation Protocol & Results
+## Evaluation Protocol & Results
 **Protocol Justification:** 
-We use the predefined dataset splits, utilizing the `Test` split (60 images) as the *Query* set and the `Validation` split (115 images) as the reference *Gallery*. This strictly tests the model's ability to identify unseen images against a known gallery. We evaluate both **Identification** (retrieval ranking via cosine similarity) and **Verification** (pairwise thresholding).
+I use the predefined dataset splits, utilizing the `Test` split (60 images) as the *Query* set and the `Validation` split (115 images) as the reference *Gallery*. This strictly tests the model's ability to identify unseen images against a known gallery. We evaluate both **Identification** (retrieval ranking via cosine similarity) and **Verification** (pairwise thresholding).
 
 ### 1. Identification (Retrieval)
 | Metric | Score | Description |
@@ -66,8 +70,8 @@ Evaluated on 2,000 random pairwise image combinations.
 
 ![Similarity Distribution](outputs/similarity_distribution.png)
 
-### 3. Color Invariance Stress Test (Custom Protocol)
-We explicitly test color-invariance by synthesizing extreme colorways of the same image and measuring similarity retention.
+### 3. Color Invariance Stress Test
+I explicitly test color-invariance by synthesizing extreme colorways of the same image and measuring similarity retention.
 * **Same Design (Extreme Colorways) Similarity:** 0.9912 ± 0.0158
 * **Different Design Similarity:** 0.6018 ± 0.1005
 * **Color Invariance Gap:** **+0.3894** *(Proves strong structural discrimination independent of color)*
@@ -77,7 +81,7 @@ We explicitly test color-invariance by synthesizing extreme colorways of the sam
 
 ---
 
-## Deliverable 4: Efficiency Report (Bonus)
+## Report 
 The architecture was chosen to be highly lean. ResNet-18 provides the necessary translation-equivariant convolutions to capture repeating textile patterns without unnecessary parameter bloat.
 
 * **Backbone:** ResNet-18 (ImageNet pre-trained)
